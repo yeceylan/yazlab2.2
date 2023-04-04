@@ -18,7 +18,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVCourses"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="550dp"
         android:layout_below="@id/idTVHeading" />
 
     <TextView
@@ -27,5 +27,20 @@
         android:layout_height="40dp"
         android:textSize="30sp"
         android:layout_below="@+id/idRVCourses" />
+    <Button
+        android:id="@+id/buttonX"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/idText"
+        android:text="❌"
+        ></Button>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/idText"
+        android:layout_alignParentEnd="true"
+        android:text="✔"
+        ></Button>
 
 </RelativeLayout>

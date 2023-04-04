@@ -1,5 +1,6 @@
 package com.yonis.yazlab22.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ class CourseRVAdapter(
         holder.courseIV.text = courseList.get(position).courseText
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id,courseList.get(position).courseText)
+            //holder.itemView.setBackgroundColor(Color.BLUE)
         }
 
     }

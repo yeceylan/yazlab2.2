@@ -27,7 +27,7 @@ class GameFragment : AppCompatActivity() {
         setContentView(R.layout.activity_game_fragment)
         courseRV = findViewById(R.id.idRVCourses)
         courseList = ArrayList()
-        //val layoutManager = GridLayoutManager(this, 8)
+
         courseRV.setLayoutManager(
             GridLayoutManager(
                 this,
@@ -36,21 +36,21 @@ class GameFragment : AppCompatActivity() {
                 true
             )
         )
-        //courseRV.layoutManager = layoutManager
+
         // on below line we are initializing our adapter
         courseRVAdapter = CourseRVAdapter(courseList, clickedCard = ::clickedCard)
         // on below line we are setting adapter to our recycler view.
         courseRV.adapter = courseRVAdapter
 
-        for (i in 1..24) {
+        for (i in 1..80) {
             val rand = ('A'..'Z').random()
             courseList.add(CourseRVModal(i, rand.toString()))
         }
         // on below line we are notifying adapter that data has been updated.
         courseRVAdapter.notifyDataSetChanged()
         //get text in assert file
-        //  val text = applicationContext?.let { readTextFromAssets(it, "veri.txt") }
-        // println(text)
+         //val text = applicationContext?.let { readTextFromAssets(it, "veri.txt") }
+        //println(text)
         pastIdList = ArrayList()
 
     }
@@ -74,8 +74,10 @@ class GameFragment : AppCompatActivity() {
             clickedView?.setBackgroundColor(Color.WHITE)
             idText.text = temp.dropLast(1)
             pastIdList.remove(pastId);
-            //doesn't erase the previous letters again
-            pastId=0;
+            //doesn't erase the previous letters again=>fixed
+            if(!pastIdList.isEmpty()){
+                pastId=pastIdList.last()
+            }
 
         }
 
