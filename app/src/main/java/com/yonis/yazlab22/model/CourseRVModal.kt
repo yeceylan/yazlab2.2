@@ -1,4 +1,4 @@
-package com.yonis.yazlab22
+package com.yonis.yazlab22.model
 
 data class CourseRVModal(
     // on below line we are creating a

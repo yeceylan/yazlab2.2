@@ -1,11 +1,12 @@
-package com.yonis.yazlab22
+package com.yonis.yazlab22.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.yonis.yazlab22.model.CourseRVModal
+import com.yonis.yazlab22.R
 
 // on below line we are creating
 // a course rv adapter class.
@@ -18,7 +19,7 @@ class CourseRVAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CourseRVAdapter.CourseViewHolder {
+    ): CourseViewHolder {
         // this method is use to inflate the layout file
         // which we have created for our recycler view.
         // on below line we are inflating our layout file.
@@ -31,7 +32,7 @@ class CourseRVAdapter(
         return CourseViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CourseRVAdapter.CourseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         // on below line we are setting data to our text view and our image view.
         //holder.courseNameTV.text = courseList.get(position).courseName
         holder.courseIV.text = courseList.get(position).courseText
