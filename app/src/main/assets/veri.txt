@@ -6078,9 +6078,6 @@ azotölçer
 Azrail
 az sonra
 azvay
-b
-B
-Ba
 baba
 baba adam
 babaanne
@@ -13481,7 +13478,6 @@ cüzdan
 cüzi
 cüzzam
 cüzzamlı
-ç
 çaba
 çabalama
 çabalamak
@@ -16583,9 +16579,6 @@ cüzzamlı
 çürüyüverme
 çürüyüvermek
 çüş
-d
-D
-da / de
 Dadacı
 Dadacılık
 Dadaist
@@ -21676,9 +21669,6 @@ düzülmek
 düzüm düzüm
 düz ünlü
 düzyazı
-Dy
-e
-e
 ebabil
 ebat
 ebcet
@@ -24409,9 +24399,6 @@ ezmek
 ezofori
 ezogelin çorbası
 ezoterik
-f
-F
-fa
 faal
 faaliyet
 faallik
@@ -25940,8 +25927,6 @@ füzen
 füzesavar
 füzyometre
 füzyon
-g
-Ga
 gabardin
 gabari
 gabavet
@@ -29124,10 +29109,6 @@ güzlemek
 güzlük
 güz noktası
 güzün
-h
-H
-ha
-Ha
 hab
 habanera
 habaset
@@ -31991,8 +31972,6 @@ hüzünlülük
 hüzünsüz
 hüzünsüzlük
 hüzzam
-hüzzam beşlisi
-i
 iade
 iadeiitibar
 iadeiziyaret
@@ -34844,8 +34823,6 @@ izzet
 izzetinefis
 izzetüikbal
 izzetüikram
-ı
-I
 ıcığı cıcığı
 Iğdır
 Iğdırlı
@@ -35255,7 +35232,6 @@ Ispartalılık
 ızrar
 ıztırar
 ıztırari
-j
 jaguar
 jakar
 jakarlı
@@ -35385,8 +35361,6 @@ Jüpiter
 jüpon
 jüri
 jüt
-k
-K
 kaba
 kababurun
 kaba but
@@ -44331,10 +44305,6 @@ kütürdetmek
 kütür kütür
 kütürtü
 küvet
-l
-L
-la
-La
 laakal
 labada
 labirent
@@ -45181,9 +45151,6 @@ lüzumsuz
 lüzumsuz adam
 lüzumsuzca
 lüzumsuzluk
-lüzumsuz yere
-m
-M
 maada
 maaile
 maalesef
@@ -49539,10 +49506,6 @@ müzminleşmek
 müzminleştirme
 müzminleştirmek
 müzminlik
-Mv
-n
-N
-Na
 naaş
 naat
 nabekâr
@@ -50705,15 +50668,9 @@ nütasyon
 nüve
 nüzul
 nüzullü
-o
-o
-O
-o açıdan
-o ara
-o aralık
 oba
 obabaşı
-o bakımdan
+bakımdan
 obelisk
 oberj
 obez
@@ -50757,7 +50714,6 @@ ocaksız
 ocak taşı
 ocuma
 ocumak
-od
 oda
 odabaşı
 odacı
@@ -50765,7 +50721,6 @@ odacık
 odacılık
 oda hapsi
 odak
-o dakika
 odaklama
 odaklamak
 odaklanabilme
@@ -50810,8 +50765,6 @@ odunsu
 odunumsu
 odyometre
 odyovizüel
-of
-Of
 ofans
 ofansif
 ofis
@@ -50830,7 +50783,6 @@ oftalmolojik
 oftalmoskop
 Oğan
 oğlak
-Oğlak
 Oğlak dönencesi
 oğlaklama
 oğlaklamak
@@ -50847,24 +50799,17 @@ oğullanma
 oğullanmak
 oğullu
 oğulluk
-oğul oğul
-oğul otu
 oğulsuz
-oğul uşak
 oğuz
 Oğuz
 Oğuzca
 Oğuzeli 
 Oğuzlar 
-oh
-oha
-o hâlde
 ohlama
 ohlamak
 oje
 ojeli
 ojit
-ok
 okaliptus
 okapi
 okar
@@ -50931,7 +50876,6 @@ oktant
 oktav
 oktrua
 okul
-okul çocuğu
 okuldaş
 okuldaşlık
 okul kaçağı
@@ -51001,7 +50945,6 @@ okyanus mavisi
 Okyanusyalı
 Okyanusyalılık
 ok yılanı
-ol
 olabildiğince
 olabilir
 olabilirlik
@@ -52123,20 +52066,14 @@ ozonosfer
 ozonoskop
 ozonölçer
 ozon ölçüm
-ozon tedavisi
 ozonür
-ozon yuvarı
 ozuga
-ö
-ö
 öbek
 öbeklenme
 öbeklenmek
 öbekleşme
 öbekleşmek
 öbür
-öbür dünya
-öbür gün
 öbürkü
 öbürleri
 öbürü
@@ -53045,20 +52982,8 @@ ozuga
 özek demiri
 özek doku
 özel
-özel ad
-özel af
-özel dikiş
-özel dil
-öz eleştiri
 özelge
-özel girişim
-özel girişimci
-özel girişimcilik
-özel hayat
 özelik
-özel isim
-özel kalem
-özel kesim
 özelleşme
 özelleşmek
 özelleştirebilme
@@ -53256,13 +53181,6 @@ ozuga
 özverililik
 özverisiz
 özverisizlik
-öz yapı
-öz yaşam
-öz yaşam öyküsü
-öz yönetim
-p
-P
-Pa
 pabuç
 pabuççu
 pabuççuluk
@@ -55718,8 +55636,6 @@ pütürlü
 pütür pütür
 pütürsüz
 pütürsüzlük
-r
-Ra
 Rab
 rabbani
 rabbanilik
@@ -56726,9 +56642,6 @@ rüzgârölçer
 rüzgârsız
 rüzgârsızlık
 rüzgârüstü
-rüzgâr yükü
-s
-S
 saadet
 saadet asrı
 saadethane
@@ -62773,18 +62686,12 @@ süt tozu
 sütun
 sütuncuk
 sütunlu
-sütü bozuk
-sütü bozukluk
 sütümsü
 sütyen
 sütyenci
 sütyencilik
 süvari
-süvari alayı
-süvari bölüğü
 süvarilik
-süvari polisi
-süvari sınıfı
 süven
 süveter
 süveyda
@@ -62821,7 +62728,6 @@ süzülüş
 süzüm süzüm
 süzüntü
 süzüş
-ş
 şaban
 şabanlaşma
 şabanlaşmak
@@ -64042,10 +63948,6 @@ süzüş
 şürekâ
 şüyu
 şvester
-t
-T
-ta
-Ta
 taaccüp
 taaddüt
 taaffün
@@ -68942,9 +68844,6 @@ tüzellik
 tüzük
 tvist
 tvistçi
-u
-U
-u borusu
 ubudiyet
 uca
 ucu açık
@@ -69959,7 +69858,6 @@ uzuvca
 uzvi
 uzvi kimya
 uzviyet
-ü
 ücra
 ücret
 ücretlendirme
@@ -71415,10 +71313,6 @@ vükela
 vürut
 vüsat
 vüzera
-V yaka
-y
-Y
-ya
 yaba
 yabalama
 yabalamak
@@ -75367,8 +75261,6 @@ yüz yazısı
 yüzyıl
 yüzyıllarca
 yüzyıllık
-yüz yüze
-z
 zaaf
 zabıt
 zabıta
@@ -76179,4 +76071,3 @@ zürriyetli
 zürriyetsiz
 zürriyetsizlik
 züyuf
-züyuf akçe
