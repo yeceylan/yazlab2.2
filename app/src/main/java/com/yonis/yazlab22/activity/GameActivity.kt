@@ -77,19 +77,18 @@ class GameActivity : AppCompatActivity() {
             if (idText.length() < 3) {
                 Toast.makeText(applicationContext, "Min 3 Letter Pls'", Toast.LENGTH_SHORT).show()
 
-            }
-            else {
+            } else {
 
                 println(compareText())
             }
-            }
+        }
     }
 
     private fun clickedCard(id: Int, letter: String) {
         val temp = idText.text.toString()
 
         // Find the clicked view in the RecyclerView
-        var clickedView = courseRV.findViewHolderForAdapterPosition(id )?.itemView
+        var clickedView = courseRV.findViewHolderForAdapterPosition(id)?.itemView
         // Change the background color of the clicked view
         clickedView?.setBackgroundColor(Color.BLUE)
         if (id != pastId) {
@@ -106,15 +105,13 @@ class GameActivity : AppCompatActivity() {
             //doesn't erase the previous letters again=>fixed
             if (!pastIdList.isEmpty()) {
                 pastId = pastIdList.last()
-            }
-            else{
-                pastId=-1
+            } else {
+                pastId = -1
             }
         }
     }
 
     private fun compareText(): Boolean {
-
         val firstChar = idText.text.toString().substring(0, 1).lowercase()
         var start = 0;
         var end = 0;
@@ -123,43 +120,34 @@ class GameActivity : AppCompatActivity() {
                 start = i.start
             end = i.end
         }
+
         var sublist = readTextFromAssets.subList(start, end)
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
                 for (j in 0 until pastIdList.size) {
                     courseList.removeAt(pastIdList.get(j))
-
                 }
+                deleteText()
                 sortList()
                 courseRVAdapter.notifyDataSetChanged()
-                deleteText()
                 return true
-
             }
         }
-
-
         return false;
     }
 
-//2 6 12
 
-    private fun sortList(){
-    var counter=0
-    for(i in courseList){
-        if(i.id==pastIdList.get(counter)+1) {
-            var temp = pastIdList.get(counter + 1) -pastIdList.get(counter)-1
-            for (j in pastIdList.get(counter)-1 until pastIdList.get(counter + 1)){
-                courseList.get(j).id=courseList.get(j).id-counter-1
-            }
-            counter++
+    private fun sortList() {
+        var counter = 0;
+        for (i in courseList) {
+            i.id = counter++
         }
     }
-    }
+
     private fun deleteText() {
         idText.text = ""
         for (i in pastIdList) {
-            var clickedView = courseRV.findViewHolderForAdapterPosition(i )?.itemView
+            var clickedView = courseRV.findViewHolderForAdapterPosition(i)?.itemView
             clickedView?.setBackgroundColor(Color.WHITE)
         }
         pastIdList.clear()
