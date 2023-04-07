@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.GameFragment">
+    tools:context=".activity.GameActivity">
 
     <!--on below line we are creating
         a text for heading of our app-->
@@ -36,11 +36,11 @@
         ></Button>
 
     <Button
+        android:id="@+id/buttonTick"
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_below="@+id/idText"
         android:layout_alignParentEnd="true"
-        android:text="✔"
-        ></Button>
+        android:text="✔"></Button>
 
 </RelativeLayout>

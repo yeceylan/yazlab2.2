@@ -16,7 +16,7 @@
     </fragment>
     <activity
         android:id="@+id/gameFragment"
-        android:name="com.yonis.yazlab22.fragment.GameFragment"
+        android:name="com.yonis.yazlab22.activity.GameActivity"
         android:label="activity_game_fragment"
         tools:layout="@layout/activity_game_fragment" />
 </navigation>
