@@ -90,7 +90,10 @@ class GameActivity : AppCompatActivity() {
         // Find the clicked view in the RecyclerView
         var clickedView = courseRV.findViewHolderForAdapterPosition(id)?.itemView
         // Change the background color of the clicked view
-        clickedView?.setBackgroundColor(Color.BLUE)
+        val rnd = Random()
+        val currentStrokeColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+
+        clickedView?.setBackgroundColor(currentStrokeColor)
         if (id != pastId) {
             //for doesnt remove before letters
             if (!pastIdList.contains(id)) {
@@ -124,8 +127,25 @@ class GameActivity : AppCompatActivity() {
         var sublist = readTextFromAssets.subList(start, end)
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
+                //pastIdList.reverse()
                 for (j in 0 until pastIdList.size) {
-                    courseList.removeAt(pastIdList.get(j))
+                    //courseList.removeAt(pastIdList.get(j))
+                    var pos = courseList.get(pastIdList.get(j)).id
+
+                    if (courseList.size >= pos + 8) {
+                        courseList.get(pos).courseText = courseList.get(pos + 8).courseText
+                        while (courseList.size > pos + 8) {
+                            if (courseList.size >= pos + 16) {
+                            courseList.get(pos + 8).courseText = courseList.get(pos + 16).courseText
+                            }
+                            else{
+                                courseList.get(pos+8).courseText = "&"
+                            }
+                            pos += 8
+                        }
+                    } else {
+                        courseList.get(pos).courseText = "&"
+                    }
                 }
                 deleteText()
                 sortList()

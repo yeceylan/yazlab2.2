@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.R
+import java.util.*
+import kotlin.collections.ArrayList
 
 // on below line we are creating
 // a course rv adapter class.
@@ -36,6 +39,14 @@ class CourseRVAdapter(
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         // on below line we are setting data to our text view and our image view.
         //holder.courseNameTV.text = courseList.get(position).courseName
+        /*val rnd = Random()
+        val currentStrokeColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        holder.itemView.setBackgroundColor(currentStrokeColor)*/
+        //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
+
+        if(courseList.get(position).courseText == "&"){
+            holder.itemView.setVisibility(View.GONE)
+        }
         holder.courseIV.text = courseList.get(position).courseText
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id,courseList.get(position).courseText)
@@ -54,5 +65,6 @@ class CourseRVAdapter(
         // on below line we are initializing our course name text view and our image view.
         //val courseNameTV: TextView = itemView.findViewById(R.id.idTVCourse)
         val courseIV: TextView = itemView.findViewById(R.id.idIVCourse)
+
     }
 }
