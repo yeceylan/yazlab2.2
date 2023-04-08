@@ -1,9 +1,13 @@
 package com.yonis.yazlab22.adapter
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
@@ -31,18 +35,20 @@ class CourseRVAdapter(
             R.layout.course_rv_item,
             parent, false
         )
+
         // at last we are returning our view holder
         // class with our item View File.
         return CourseViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        // on below line we are setting data to our text view and our image view.
-        //holder.courseNameTV.text = courseList.get(position).courseName
+
         /*val rnd = Random()
         val currentStrokeColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
         holder.itemView.setBackgroundColor(currentStrokeColor)*/
         //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
+
+
 
         if(courseList.get(position).courseText == "*"){
            holder.itemView.setVisibility(View.GONE)

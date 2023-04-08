@@ -1,14 +1,20 @@
 package com.yonis.yazlab22.activity
 
+
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yonis.yazlab22.MainActivity
 import com.yonis.yazlab22.R
 import com.yonis.yazlab22.adapter.CourseRVAdapter
 import com.yonis.yazlab22.model.CourseRVModal
@@ -21,7 +27,10 @@ import kotlin.collections.ArrayList
 
 class GameActivity : AppCompatActivity() {
 
-
+    var handler = Handler()
+    var runnable=Runnable{ }
+    var time = 0L
+    var pastTime:Int=1
     lateinit var courseRV: RecyclerView
     lateinit var courseRVAdapter: CourseRVAdapter
     lateinit var courseList: ArrayList<CourseRVModal>
@@ -30,11 +39,32 @@ class GameActivity : AppCompatActivity() {
     private lateinit var buttonX: Button
     private lateinit var buttonTick: Button
     private lateinit var readTextFromAssets: ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         readTextFromAssets = ArrayList()
 
         setContentView(R.layout.activity_game_fragment)
+        object : CountDownTimer(6000,1000){
+            override fun onTick(millisUntilFinished: Long) {
+                idTVHeading.text="Time: " + millisUntilFinished/1000
+                pastTime++
+            }
+
+            override fun onFinish() {
+                idTVHeading.text="Time: 0"
+
+                handler.removeCallbacks(runnable)
+
+                val rand = ('A'..'Z').random()
+                courseList.add(CourseRVModal(pastTime%4+24, rand.toString()))
+                courseRVAdapter.notifyItemInserted(25)
+
+
+            }
+
+        }.start()
+
         courseRV = findViewById(R.id.idRVCourses)
         courseList = ArrayList()
         courseRV.setLayoutManager(
@@ -45,9 +75,11 @@ class GameActivity : AppCompatActivity() {
                 true
             )
         )
+
         //for file reading and adding list
         // on below line we are initializing our adapter
         courseRVAdapter = CourseRVAdapter(courseList, clickedCard = ::clickedCard)
+
         // on below line we are setting adapter to our recycler view.
         courseRV.adapter = courseRVAdapter
         for (i in 0..23) {
@@ -83,6 +115,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun clickedCard(id: Int, letter: String) {
         val temp = idText.text.toString()
