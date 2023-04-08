@@ -44,8 +44,8 @@ class CourseRVAdapter(
         holder.itemView.setBackgroundColor(currentStrokeColor)*/
         //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
 
-        if(courseList.get(position).courseText == "&"){
-            holder.itemView.setVisibility(View.GONE)
+        if(courseList.get(position).courseText == "*"){
+           holder.itemView.setVisibility(View.GONE)
         }
         holder.courseIV.text = courseList.get(position).courseText
         holder.itemView.setOnClickListener {

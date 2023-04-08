@@ -131,7 +131,7 @@ class GameActivity : AppCompatActivity() {
                 for (j in 0 until pastIdList.size) {
                     //courseList.removeAt(pastIdList.get(j))
                     var pos = courseList.get(pastIdList.get(j)).id
-
+                    courseList.get(pos).courseText = "*"
                     if (courseList.size >= pos + 8) {
                         courseList.get(pos).courseText = courseList.get(pos + 8).courseText
                         while (courseList.size > pos + 8) {
@@ -139,13 +139,14 @@ class GameActivity : AppCompatActivity() {
                             courseList.get(pos + 8).courseText = courseList.get(pos + 16).courseText
                             }
                             else{
-                                courseList.get(pos+8).courseText = "&"
+                                courseList.get(pos+8).courseText = "*"
                             }
                             pos += 8
                         }
                     } else {
-                        courseList.get(pos).courseText = "&"
+                        courseList.get(pos).courseText = "*"
                     }
+                    pos=0
                 }
                 deleteText()
                 sortList()
