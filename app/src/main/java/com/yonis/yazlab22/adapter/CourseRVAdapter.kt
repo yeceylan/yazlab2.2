@@ -13,6 +13,8 @@ import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.R
+import com.yonis.yazlab22.activity.GameActivity
+import kotlinx.android.synthetic.main.activity_game_fragment.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,16 +51,23 @@ class CourseRVAdapter(
         holder.itemView.setBackgroundColor(currentStrokeColor)*/
         //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
 
+
         if (courseList.get(position).courseText.equals(".")) {
-//           holder.itemView.setVisibility(View.GONE)
-            holder.itemView.setBackgroundColor(Color.BLUE)
+            //holder.itemView.setBackgroundColor(Color.BLUE)
+            holder.itemView.setVisibility(View.GONE)
+        } else {
+            holder.itemView.setVisibility(View.VISIBLE);
+            // holder.itemView.setBackgroundColor(Color.WHITE)
+
         }
 
         holder.courseIV.text = courseList.get(position).courseText
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id, courseList.get(position).courseText)
             //holder.itemView.setBackgroundColor(Color.BLUE)
+
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -72,5 +81,8 @@ class CourseRVAdapter(
         //val courseNameTV: TextView = itemView.findViewById(R.id.idTVCourse)
         val courseIV: TextView = itemView.findViewById(R.id.idIVCourse)
 
+
     }
+
+
 }

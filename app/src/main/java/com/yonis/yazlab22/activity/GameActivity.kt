@@ -28,9 +28,9 @@ import kotlin.collections.ArrayList
 class GameActivity : AppCompatActivity() {
 
     var handler = Handler()
-    var runnable=Runnable{ }
+    var runnable = Runnable { }
     var time = 0L
-    var pastTime:Int=1
+    var pastTime: Int = 1
     lateinit var courseRV: RecyclerView
     lateinit var courseRVAdapter: CourseRVAdapter
     lateinit var courseList: ArrayList<CourseRVModal>
@@ -83,11 +83,8 @@ class GameActivity : AppCompatActivity() {
 
         // on below line we are setting adapter to our recycler view.
         courseRV.adapter = courseRVAdapter
-        for (i in 0..23) {
-            val rand = ('A'..'Z').random()
-            courseList.add(CourseRVModal(i, rand.toString()))
-        }
 
+        generateCourseList()
         // on below line we are notifying adapter that data has been updated.
         courseRVAdapter.notifyDataSetChanged()
         pastIdList = ArrayList()
@@ -113,6 +110,23 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    private fun generateCourseList() {
+        val vowels = arrayOf('A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü')
+        val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
+        val stringList = mutableListOf<String>()
+
+        for (i in 0..8) {
+            stringList.add(vowels.random().toString())
+        }
+        for (i in 0..15) {
+            stringList.add(turkishLetters.random().toString())
+        }
+        stringList.shuffle()
+        for (i in 0..23) {
+            courseList.add(CourseRVModal(i, stringList.get(i)))
+
+        }
+    }
 
     private fun clickedCard(id: Int, letter: String) {
         val temp = idText.text.toString()
@@ -121,7 +135,8 @@ class GameActivity : AppCompatActivity() {
         var clickedView = courseRV.findViewHolderForAdapterPosition(id)?.itemView
         // Change the background color of the clicked view
         val rnd = Random()
-        val currentStrokeColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        val currentStrokeColor =
+            Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
 
         clickedView?.setBackgroundColor(currentStrokeColor)
         if (id != pastId) {
@@ -157,6 +172,7 @@ class GameActivity : AppCompatActivity() {
         var sublist = readTextFromAssets.subList(start, end)
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
+                println(idText.text.toString())
                 //pastIdList.reverse()
                 for (j in 0 until pastIdList.size) {
                     var pos = courseList.get(pastIdList.get(j)).id
@@ -165,26 +181,28 @@ class GameActivity : AppCompatActivity() {
                         while (courseList.size > pos + 8) {
 
                             if (courseList.size > pos + 16) {
-                            courseList.get(pos + 8).courseText = courseList.get(pos + 16).courseText
-                            }
-                            else{
-                                courseList[pos+8].courseText = "."
+                                courseList.get(pos + 8).courseText =
+                                    courseList.get(pos + 16).courseText
+                            } else {
+                                courseList[pos + 8].courseText = "."
                             }
                             pos += 8
                         }
                     } else {
                         courseList.get(pos).courseText = "."
                     }
-                    pos=0
+                    pos = 0
                 }
                 deleteText()
                 sortList()
                 courseRVAdapter.notifyDataSetChanged()
+
                 return true
             }
         }
         return false;
     }
+
 
 
     private fun sortList() {
