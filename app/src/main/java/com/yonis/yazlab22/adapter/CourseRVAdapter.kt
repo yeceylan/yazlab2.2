@@ -22,11 +22,12 @@ class CourseRVAdapter(
     // on below line we are passing variables
     // as course list and context
     private val courseList: ArrayList<CourseRVModal>,
-    val clickedCard: (id:Int,letter:String) -> Unit
+    val clickedCard: (id: Int, letter: String) -> Unit
 ) : RecyclerView.Adapter<CourseRVAdapter.CourseViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
+
     ): CourseViewHolder {
         // this method is use to inflate the layout file
         // which we have created for our recycler view.
@@ -48,17 +49,16 @@ class CourseRVAdapter(
         holder.itemView.setBackgroundColor(currentStrokeColor)*/
         //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
 
-
-
-        if(courseList.get(position).courseText == "*"){
-           holder.itemView.setVisibility(View.GONE)
+        if (courseList.get(position).courseText.equals(".")) {
+//           holder.itemView.setVisibility(View.GONE)
+            holder.itemView.setBackgroundColor(Color.BLUE)
         }
+
         holder.courseIV.text = courseList.get(position).courseText
         holder.itemView.setOnClickListener {
-            clickedCard(courseList.get(position).id,courseList.get(position).courseText)
+            clickedCard(courseList.get(position).id, courseList.get(position).courseText)
             //holder.itemView.setBackgroundColor(Color.BLUE)
         }
-
     }
 
     override fun getItemCount(): Int {

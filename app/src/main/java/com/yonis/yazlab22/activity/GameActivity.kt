@@ -45,25 +45,26 @@ class GameActivity : AppCompatActivity() {
         readTextFromAssets = ArrayList()
 
         setContentView(R.layout.activity_game_fragment)
-        object : CountDownTimer(6000,1000){
-            override fun onTick(millisUntilFinished: Long) {
-                idTVHeading.text="Time: " + millisUntilFinished/1000
-                pastTime++
-            }
-
-            override fun onFinish() {
-                idTVHeading.text="Time: 0"
-
-                handler.removeCallbacks(runnable)
-
-                val rand = ('A'..'Z').random()
-                courseList.add(CourseRVModal(pastTime%4+24, rand.toString()))
-                courseRVAdapter.notifyItemInserted(25)
-
-
-            }
-
-        }.start()
+//        object : CountDownTimer(6000,1000){
+//            override fun onTick(millisUntilFinished: Long) {
+//                idTVHeading.text="Time: " + millisUntilFinished/1000
+//                pastTime++
+//            }
+//
+//            override fun onFinish() {
+//                idTVHeading.text="Time: 0"
+//
+//                handler.removeCallbacks(runnable)
+//
+//                val rand = ('A'..'Z').random()
+//                courseList.add(CourseRVModal(pastTime%4+24, rand.toString()))
+//                courseRVAdapter.notifyItemInserted((courseList.size+1))
+//
+//
+//
+//            }
+//
+//        }.start()
 
         courseRV = findViewById(R.id.idRVCourses)
         courseList = ArrayList()
@@ -99,10 +100,6 @@ class GameActivity : AppCompatActivity() {
         buttonTick = findViewById<Button>(R.id.buttonTick)
 
         buttonX.setOnClickListener {
-            if (idText.length() < 3) {
-                Toast.makeText(applicationContext, "Min 3 Letter Pls'", Toast.LENGTH_SHORT).show()
-            }
-
             deleteText()
         }
         buttonTick.setOnClickListener {
@@ -162,22 +159,21 @@ class GameActivity : AppCompatActivity() {
             if (i.equals(idText.text.toString().lowercase())) {
                 //pastIdList.reverse()
                 for (j in 0 until pastIdList.size) {
-                    //courseList.removeAt(pastIdList.get(j))
                     var pos = courseList.get(pastIdList.get(j)).id
-                    courseList.get(pos).courseText = "*"
-                    if (courseList.size >= pos + 8) {
+                    if (courseList.size > pos + 8) {
                         courseList.get(pos).courseText = courseList.get(pos + 8).courseText
                         while (courseList.size > pos + 8) {
-                            if (courseList.size >= pos + 16) {
+
+                            if (courseList.size > pos + 16) {
                             courseList.get(pos + 8).courseText = courseList.get(pos + 16).courseText
                             }
                             else{
-                                courseList.get(pos+8).courseText = "*"
+                                courseList[pos+8].courseText = "."
                             }
                             pos += 8
                         }
                     } else {
-                        courseList.get(pos).courseText = "*"
+                        courseList.get(pos).courseText = "."
                     }
                     pos=0
                 }
