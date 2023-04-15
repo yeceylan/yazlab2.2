@@ -1,21 +1,12 @@
 package com.yonis.yazlab22.adapter
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.R
-import com.yonis.yazlab22.activity.GameActivity
-import kotlinx.android.synthetic.main.activity_game_fragment.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 // on below line we are creating
@@ -23,6 +14,7 @@ import kotlin.collections.ArrayList
 class CourseRVAdapter(
     // on below line we are passing variables
     // as course list and context
+
     private val courseList: ArrayList<CourseRVModal>,
     val clickedCard: (id: Int, letter: String) -> Unit
 ) : RecyclerView.Adapter<CourseRVAdapter.CourseViewHolder>() {
@@ -68,6 +60,8 @@ class CourseRVAdapter(
 
         }
 
+
+
     }
 
     override fun getItemCount(): Int {
@@ -75,6 +69,7 @@ class CourseRVAdapter(
         // returning our size of our list
         return courseList.size
     }
+
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // on below line we are initializing our course name text view and our image view.

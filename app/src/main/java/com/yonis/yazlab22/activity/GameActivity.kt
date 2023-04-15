@@ -2,28 +2,25 @@ package com.yonis.yazlab22.activity
 
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yonis.yazlab22.MainActivity
 import com.yonis.yazlab22.R
 import com.yonis.yazlab22.adapter.CourseRVAdapter
+import com.yonis.yazlab22.countDownTimer.TimeCounter
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.model.LetterStartEnd
 import kotlinx.android.synthetic.main.activity_game_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class GameActivity : AppCompatActivity() {
 
@@ -31,41 +28,23 @@ class GameActivity : AppCompatActivity() {
     var runnable = Runnable { }
     var time = 0L
     var pastTime: Int = 1
-    lateinit var courseRV: RecyclerView
-    lateinit var courseRVAdapter: CourseRVAdapter
-    lateinit var courseList: ArrayList<CourseRVModal>
     var pastId: Int = 0
     lateinit var pastIdList: ArrayList<Int>
     private lateinit var buttonX: Button
     private lateinit var buttonTick: Button
     private lateinit var readTextFromAssets: ArrayList<String>
+    private lateinit var countUpTimer: TimeCounter
+
+    companion object{
+        lateinit var  courseList: ArrayList<CourseRVModal>
+        lateinit var courseRVAdapter: CourseRVAdapter
+        lateinit var courseRV: RecyclerView
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         readTextFromAssets = ArrayList()
-
         setContentView(R.layout.activity_game_fragment)
-//        object : CountDownTimer(6000,1000){
-//            override fun onTick(millisUntilFinished: Long) {
-//                idTVHeading.text="Time: " + millisUntilFinished/1000
-//                pastTime++
-//            }
-//
-//            override fun onFinish() {
-//                idTVHeading.text="Time: 0"
-//
-//                handler.removeCallbacks(runnable)
-//
-//                val rand = ('A'..'Z').random()
-//                courseList.add(CourseRVModal(pastTime%4+24, rand.toString()))
-//                courseRVAdapter.notifyItemInserted((courseList.size+1))
-//
-//
-//
-//            }
-//
-//        }.start()
-
         courseRV = findViewById(R.id.idRVCourses)
         courseList = ArrayList()
         courseRV.setLayoutManager(
@@ -76,23 +55,38 @@ class GameActivity : AppCompatActivity() {
                 true
             )
         )
-
         //for file reading and adding list
         // on below line we are initializing our adapter
         courseRVAdapter = CourseRVAdapter(courseList, clickedCard = ::clickedCard)
-
         // on below line we are setting adapter to our recycler view.
         courseRV.adapter = courseRVAdapter
-
         generateCourseList()
         // on below line we are notifying adapter that data has been updated.
-        courseRVAdapter.notifyDataSetChanged()
         pastIdList = ArrayList()
         loadTextFromAssets()
+        countUpTimer= TimeCounter(applicationContext,4000)
+        countUpTimer.onTick(4000)
+        countUpTimer.start()
+
     }
 
+//    fun addLetter(){
+//        val timer = Timer()
+//        val task = object : TimerTask() {
+//            override fun run() {
+//                runOnUiThread {
+//                    courseRVAdapter.notifyDataSetChanged()
+//                }
+//            }
+//        }
+//        val delay = 0L
+//        val period = 4000L
+//        timer.schedule(task, delay, period)
+//
+//    }
     override fun onResume() {
         super.onResume()
+
         buttonX = findViewById<Button>(R.id.buttonX)
         buttonTick = findViewById<Button>(R.id.buttonTick)
 
@@ -157,6 +151,7 @@ class GameActivity : AppCompatActivity() {
                 pastId = -1
             }
         }
+
     }
 
     private fun compareText(): Boolean {
@@ -173,25 +168,28 @@ class GameActivity : AppCompatActivity() {
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
                 println(idText.text.toString())
-                //pastIdList.reverse()
+                pastIdList.reverse()
                 for (j in 0 until pastIdList.size) {
                     var pos = courseList.get(pastIdList.get(j)).id
-                    if (courseList.size > pos + 8) {
-                        courseList.get(pos).courseText = courseList.get(pos + 8).courseText
-                        while (courseList.size > pos + 8) {
+                    while (courseList.size > pos + 8) {
+                         if(courseList.size > pos + 16 && pastIdList.contains(courseList.get(pos + 8).id )){
+                            courseList.get(pos).courseText = "."
 
-                            if (courseList.size > pos + 16) {
-                                courseList.get(pos + 8).courseText =
-                                    courseList.get(pos + 16).courseText
-                            } else {
-                                courseList[pos + 8].courseText = "."
-                            }
                             pos += 8
                         }
-                    } else {
-                        courseList.get(pos).courseText = "."
+                      else  if (courseList.size > pos + 16 && pastIdList.contains(courseList.get(pos + 16).id )) {
+                            courseList.get(pos).courseText = "."
+                            courseList.get(pos).courseText =
+                                courseList.get(pos + 8).courseText
+                            pos += 8
+                        }
+                        else {
+                            courseList.get(pos).courseText =
+                                courseList.get(pos + 8).courseText
+                            pos += 8
+                        }
                     }
-                    pos = 0
+                    courseList.get(pos).courseText = "."
                 }
                 deleteText()
                 sortList()
@@ -202,7 +200,6 @@ class GameActivity : AppCompatActivity() {
         }
         return false;
     }
-
 
 
     private fun sortList() {
