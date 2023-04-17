@@ -40,7 +40,7 @@ class CourseRVAdapter(
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
 
 
-        if (courseList.get(position).courseText.equals(".") || courseList.get(position).courseText.equals("*") ) {
+        if (courseList.get(position).courseText.equals(".")) {
             holder.itemView.setVisibility(View.GONE)
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
@@ -52,9 +52,19 @@ class CourseRVAdapter(
             clickedCard(courseList.get(position).id, courseList.get(position).courseText)
             //holder.itemView.setBackgroundColor(Color.BLUE)
             holder.itemView.setBackgroundColor(courseList.get(position).backColor)
-            courseList.get(position).isClicked=true
+            if(courseList.get(position).isClicked==true){
+                courseList.get(position).isClicked=false
+            }else{
+                courseList.get(position).isClicked=true
+            }
 
 
+
+        }
+        if(!courseList.get(position).isClicked){
+            holder.itemView.setBackgroundColor(Color.WHITE)
+        }else{
+            holder.itemView.setBackgroundColor(courseList.get(position).backColor)
         }
 
 

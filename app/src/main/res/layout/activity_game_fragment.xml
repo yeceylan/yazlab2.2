@@ -10,9 +10,29 @@
     <!--on below line we are creating
         a text for heading of our app-->
     <TextView
-        android:id="@+id/idTVHeading"
-        android:layout_width="match_parent"
+        android:id="@+id/healt1"
+        android:layout_width="100dp"
         android:layout_height="75dp"
+        android:text="✖"
+        android:textSize="50dp"
+        android:textAlignment="textEnd"
+        />
+    <TextView
+        android:id="@+id/point"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:layout_toRightOf="@id/healt1"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="70dp"
+        />
+    <TextView
+        android:id="@+id/healt2"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:layout_toRightOf="@id/point"
+        android:text="✖"
+        android:textSize="50dp"
         />
 
     <!--on below line we are creating a recycler view-->
@@ -20,7 +40,7 @@
         android:id="@+id/idRVCourses"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        android:layout_below="@id/idTVHeading"
+        android:layout_below="@id/point"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         />
     <Button
