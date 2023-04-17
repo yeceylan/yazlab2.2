@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
 import com.yonis.yazlab22.R
+import com.yonis.yazlab22.countDownTimer.TimeCounter
 
 
 class WelcomeFragment : Fragment() {
     private lateinit var startGameButton:Button
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,8 +32,9 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startGameButton=view.findViewById(R.id.startGameButton)
         startGameButton.setOnClickListener{
-            val action=R.id.action_welcomeFragment_to_gameFragment;
-            Navigation.findNavController(it).navigate(action);
+            val action=R.id.action_welcomeFragment_to_gameFragment
+            Navigation.findNavController(it).navigate(action)
+
         }
 
     }

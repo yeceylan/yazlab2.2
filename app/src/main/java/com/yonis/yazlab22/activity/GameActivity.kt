@@ -2,19 +2,16 @@ package com.yonis.yazlab22.activity
 
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yonis.yazlab22.MainActivity
 import com.yonis.yazlab22.R
 import com.yonis.yazlab22.adapter.CourseRVAdapter
 import com.yonis.yazlab22.countDownTimer.ClickCounter
@@ -22,8 +19,6 @@ import com.yonis.yazlab22.countDownTimer.TimeCounter
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.model.LetterStartEnd
 import kotlinx.android.synthetic.main.activity_game_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -36,15 +31,19 @@ class GameActivity : AppCompatActivity() {
     var time = 0L
     var pastTime: Int = 1
     var pastId: Int = 0
+    var p: Int = 0
+    var health: Int = 3
+    var timer:Long =5000L
     lateinit var pastIdList: ArrayList<Int>
     private lateinit var buttonX: Button
+    private lateinit var point: TextView
     private lateinit var buttonTick: Button
     private lateinit var readTextFromAssets: ArrayList<String>
     private lateinit var countUpTimer: TimeCounter
     private lateinit var clickTimer: ClickCounter
 
-    companion object{
-        lateinit var  courseList: ArrayList<CourseRVModal>
+    companion object {
+        lateinit var courseList: ArrayList<CourseRVModal>
         lateinit var courseRVAdapter: CourseRVAdapter
         lateinit var courseRV: RecyclerView
     }
@@ -54,26 +53,6 @@ class GameActivity : AppCompatActivity() {
         readTextFromAssets = ArrayList()
 
         setContentView(R.layout.activity_game_fragment)
-//        object : CountDownTimer(6000,1000){
-//            override fun onTick(millisUntilFinished: Long) {
-//                idTVHeading.text="Time: " + millisUntilFinished/1000
-//                pastTime++
-//            }
-//
-//            override fun onFinish() {
-//                idTVHeading.text="Time: 0"
-//
-//                handler.removeCallbacks(runnable)
-//
-//                val rand = ('A'..'Z').random()
-//                courseList.add(CourseRVModal(pastTime%4+24, rand.toString()))
-//                courseRVAdapter.notifyItemInserted((courseList.size+1))
-//
-//
-//
-//            }
-//
-//        }.start()
 
         courseRV = findViewById(R.id.idRVCourses)
         courseList = ArrayList()
@@ -85,7 +64,6 @@ class GameActivity : AppCompatActivity() {
                 true
             )
         )
-
         //for file reading and adding list
         // on below line we are initializing our adapter
         courseRVAdapter = CourseRVAdapter(courseList, clickedCard = ::clickedCard)
@@ -98,8 +76,8 @@ class GameActivity : AppCompatActivity() {
         courseRVAdapter.notifyDataSetChanged()
         pastIdList = ArrayList()
         loadTextFromAssets()
-
-
+        countUpTimer = TimeCounter(applicationContext, timer)
+        countUpTimer.start()
 
     }
 
@@ -107,8 +85,6 @@ class GameActivity : AppCompatActivity() {
         super.onResume()
         buttonX = findViewById<Button>(R.id.buttonX)
         buttonTick = findViewById<Button>(R.id.buttonTick)
-
-
         buttonX.setOnClickListener {
             deleteText()
         }
@@ -117,19 +93,46 @@ class GameActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Min 3 Letter Pls'", Toast.LENGTH_SHORT).show()
 
             } else {
+                if (!compareText()) {
+                    getEightLetter()
+                    if (health == 3) {
+                        health--
+                        healt1.text = "?"
+                    } else if (health == 2) {
+                        health--
+                        healt2.text = "?"
+                    } else {
+                        health--
+                        healt1.text = "-"
+                    }
+                }
 
-                println(compareText())
             }
+
         }
 
-            countUpTimer= TimeCounter(applicationContext,8000)
-            countUpTimer.onTick(8000)
-            countUpTimer.start()
-        clickTimer= ClickCounter(applicationContext,1000)
+        clickTimer = ClickCounter(applicationContext, 1000)
         clickTimer.onTick(1000)
         clickTimer.start()
+    }
 
+    private fun getEightLetter() {
+        val vowels = arrayOf('A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü')
+        val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
+        val stringList = mutableListOf<String>()
 
+        for (i in 0..8) {
+            stringList.add(vowels.random().toString())
+        }
+        for (i in 0..15) {
+            stringList.add(turkishLetters.random().toString())
+        }
+        stringList.shuffle()
+        var temp=0
+           for (i in 79..87) {
+               courseList.get(i).courseText = stringList.get(temp)
+               temp++
+           }
 
     }
 
@@ -149,14 +152,14 @@ class GameActivity : AppCompatActivity() {
             val rnd = Random()
             val currentStrokeColor =
                 Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-            courseList.add(CourseRVModal(i, stringList.get(i),false,currentStrokeColor))
+            courseList.add(CourseRVModal(i, stringList.get(i), false, currentStrokeColor))
 
         }
         for (i in 24..87) {
             val rnd = Random()
             val currentStrokeColor =
                 Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-            courseList.add(CourseRVModal(i, ".",false,currentStrokeColor))
+            courseList.add(CourseRVModal(i, ".", false, currentStrokeColor))
 
         }
 
@@ -203,37 +206,34 @@ class GameActivity : AppCompatActivity() {
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
                 println(idText.text.toString())
-                //pastIdList.reverse()
-                for (j in 0 until pastIdList.size) {
-                    var pos = courseList.get(pastIdList.get(j)).id
-                    if (courseList.size > pos + 8) {
-                        courseList.get(pos).courseText = courseList.get(pos + 8).courseText
-                        while (courseList.size > pos + 8) {
 
-                            if (courseList.size > pos + 16) {
-                                courseList.get(pos + 8).courseText =
-                                    courseList.get(pos + 16).courseText
-                            } else {
-                                courseList[pos + 8].courseText = "."
-                            }
-                            pos += 8
-                        }
-                    } else {
-                        courseList.get(pos).courseText = "."
-                    }
-                    pos = 0
+                for (j in 0 until pastIdList.size) {
+                    courseList.get(pastIdList.get(j)).courseText="."
                 }
                 deleteText()
                 sortList()
+                for (i in courseList) {
+                    i.isClicked = false
+                }
                 courseRVAdapter.notifyDataSetChanged()
-
                 return true
             }
         }
         return false;
     }
 
-
+    private fun getPoint():Int {
+        point = findViewById(R.id.point)
+        for (i in idText.text.toString().lowercase()) {
+            for (j in LetterStartEnd.letterStartEndArrayList) {
+                if (j.lettername.toString().equals(i.toString())) {
+                    p += j.point
+                }
+            }
+        }
+        point.text = p.toString()
+        return p
+    }
 
     private fun sortList() {
         var counter = 0;
@@ -249,6 +249,9 @@ class GameActivity : AppCompatActivity() {
             clickedView?.setBackgroundColor(Color.WHITE)
         }
         pastIdList.clear()
+        for (i in courseList) {
+            i.isClicked = false
+        }
     }
 
     private fun loadTextFromAssets() {

@@ -9,7 +9,7 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
     override fun onTick(millisElapsed: Long) {
         var text:String=""
 
-        for(pos in 24..87){
+        for(pos in 0..87){
             if(GameActivity.courseList.get(pos).courseText != "."){
                 text=GameActivity.courseList.get(pos).courseText
                 dropItem(pos,text)
