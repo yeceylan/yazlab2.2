@@ -1,5 +1,6 @@
 package com.yonis.yazlab22.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,25 +39,21 @@ class CourseRVAdapter(
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
 
-        /*val rnd = Random()
-        val currentStrokeColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-        holder.itemView.setBackgroundColor(currentStrokeColor)*/
-        //eklenirken rengini rastgele yapıyor fakat notify her seferinde çalışmasına sebep oluyor
 
-
-        if (courseList.get(position).courseText.equals(".")) {
-            //holder.itemView.setBackgroundColor(Color.BLUE)
+        if (courseList.get(position).courseText.equals(".") || courseList.get(position).courseText.equals("*") ) {
             holder.itemView.setVisibility(View.GONE)
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
-            // holder.itemView.setBackgroundColor(Color.WHITE)
-
         }
 
         holder.courseIV.text = courseList.get(position).courseText
+
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id, courseList.get(position).courseText)
             //holder.itemView.setBackgroundColor(Color.BLUE)
+            holder.itemView.setBackgroundColor(courseList.get(position).backColor)
+            courseList.get(position).isClicked=true
+
 
         }
 
@@ -73,7 +70,6 @@ class CourseRVAdapter(
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // on below line we are initializing our course name text view and our image view.
-        //val courseNameTV: TextView = itemView.findViewById(R.id.idTVCourse)
         val courseIV: TextView = itemView.findViewById(R.id.idIVCourse)
 
 

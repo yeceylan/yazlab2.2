@@ -5,5 +5,7 @@ data class CourseRVModal(
     // two variable one for course name
     // and other for course image.
     var id:Int,
-    var courseText:String
+    var courseText:String,
+    var isClicked:Boolean,
+    var backColor:Int
 )

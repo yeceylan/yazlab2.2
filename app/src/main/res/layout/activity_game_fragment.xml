@@ -12,36 +12,39 @@
     <TextView
         android:id="@+id/idTVHeading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="75dp"
+        />
 
     <!--on below line we are creating a recycler view-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVCourses"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="600dp"
         android:layout_below="@id/idTVHeading"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         />
-
-    <TextView
-        android:id="@+id/idText"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textSize="30sp"
-        android:layout_below="@+id/idRVCourses" />
     <Button
         android:id="@+id/buttonX"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/idText"
+        android:layout_below="@+id/idRVCourses"
         android:text="❌"
         ></Button>
+    <TextView
+        android:id="@+id/idText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="30sp"
+        android:layout_toLeftOf="@id/buttonTick"
+        android:layout_toRightOf="@id/buttonX"
+        android:layout_below="@+id/idRVCourses" />
+
 
     <Button
         android:id="@+id/buttonTick"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/idText"
+        android:layout_below="@+id/idRVCourses"
         android:layout_alignParentEnd="true"
         android:text="✔"></Button>
 
