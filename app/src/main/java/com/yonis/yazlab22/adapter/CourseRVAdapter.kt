@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.R
@@ -45,13 +46,16 @@ class CourseRVAdapter(
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
         }
+        holder.itemView.rootView.background= ContextCompat.getDrawable(holder.itemView.context,courseList.get(position).background)
 
         holder.courseIV.text = courseList.get(position).courseText
 
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id, courseList.get(position).courseText)
-            //holder.itemView.setBackgroundColor(Color.BLUE)
-            holder.itemView.setBackgroundColor(courseList.get(position).backColor)
+
+
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
+
             if(courseList.get(position).isClicked==true){
                 courseList.get(position).isClicked=false
             }else{
@@ -62,9 +66,11 @@ class CourseRVAdapter(
 
         }
         if(!courseList.get(position).isClicked){
-            holder.itemView.setBackgroundColor(Color.WHITE)
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,R.color.white)
+
         }else{
-            holder.itemView.setBackgroundColor(courseList.get(position).backColor)
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
+
         }
 
 

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,8 @@ class GameActivity : AppCompatActivity() {
     lateinit var pastIdList: ArrayList<Int>
     private lateinit var buttonX: Button
     private lateinit var point: TextView
+    private lateinit var healt1: TextView
+    private lateinit var healt2: TextView
     private lateinit var buttonTick: Button
     private lateinit var readTextFromAssets: ArrayList<String>
     private lateinit var countUpTimer: TimeCounter
@@ -85,6 +88,9 @@ class GameActivity : AppCompatActivity() {
         super.onResume()
         buttonX = findViewById<Button>(R.id.buttonX)
         buttonTick = findViewById<Button>(R.id.buttonTick)
+        healt1 = findViewById(R.id.healt1)
+        healt2 = findViewById(R.id.healt2)
+
         buttonX.setOnClickListener {
             deleteText()
         }
@@ -97,13 +103,12 @@ class GameActivity : AppCompatActivity() {
                     getEightLetter()
                     if (health == 3) {
                         health--
-                        healt1.text = "?"
+                        healt1.setTextColor(Color.RED)
                     } else if (health == 2) {
                         health--
-                        healt2.text = "?"
+                        healt2.setTextColor(Color.RED)
                     } else {
-                        health--
-                        healt1.text = "-"
+                        //game over
                     }
                 }
 
@@ -150,16 +155,14 @@ class GameActivity : AppCompatActivity() {
         stringList.shuffle()
         for (i in 0..23) {
             val rnd = Random()
-            val currentStrokeColor =
-                Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-            courseList.add(CourseRVModal(i, stringList.get(i), false, currentStrokeColor))
+
+            courseList.add(CourseRVModal(i, stringList.get(i), false, R.color.teal_200, R.drawable.rectangle_background))
 
         }
         for (i in 24..87) {
             val rnd = Random()
-            val currentStrokeColor =
-                Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-            courseList.add(CourseRVModal(i, ".", false, currentStrokeColor))
+
+            courseList.add(CourseRVModal(i, ".", false, R.color.teal_200,R.drawable.oval_background))
 
         }
 
@@ -180,7 +183,10 @@ class GameActivity : AppCompatActivity() {
                 pastIdList.add(id)
             }
         } else {
-            clickedView?.setBackgroundColor(Color.WHITE)
+
+            clickedView?.backgroundTintList =
+                ContextCompat.getColorStateList(applicationContext,R.color.white)
+
             idText.text = temp.dropLast(1)
             pastIdList.remove(pastId);
             //doesn't erase the previous letters again=>fixed
@@ -206,7 +212,7 @@ class GameActivity : AppCompatActivity() {
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
                 println(idText.text.toString())
-
+                getPoint()
                 for (j in 0 until pastIdList.size) {
                     courseList.get(pastIdList.get(j)).courseText="."
                 }
