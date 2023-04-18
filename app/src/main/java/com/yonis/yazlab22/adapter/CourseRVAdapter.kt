@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yonis.yazlab22.model.CourseRVModal
 import com.yonis.yazlab22.R
+import kotlinx.android.synthetic.main.course_rv_item.view.*
 import kotlin.collections.ArrayList
 
 // on below line we are creating
@@ -47,29 +48,33 @@ class CourseRVAdapter(
             holder.itemView.setVisibility(View.VISIBLE);
         }
         holder.itemView.rootView.background= ContextCompat.getDrawable(holder.itemView.context,courseList.get(position).background)
+        holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
+
 
         holder.courseIV.text = courseList.get(position).courseText
 
         holder.itemView.setOnClickListener {
             clickedCard(courseList.get(position).id, courseList.get(position).courseText)
 
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,R.color.white)
+            holder.itemView.idIVCourse.setTextColor(Color.GREEN)
 
-            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
+                if(courseList.get(position).isClicked==true){
+                    courseList.get(position).isClicked=false
+                }else{
+                    courseList.get(position).isClicked=true
+                }
 
-            if(courseList.get(position).isClicked==true){
-                courseList.get(position).isClicked=false
-            }else{
-                courseList.get(position).isClicked=true
-            }
 
 
 
         }
         if(!courseList.get(position).isClicked){
-            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,R.color.white)
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
 
         }else{
-            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,courseList.get(position).backColor)
+            holder.itemView.backgroundTintList=ContextCompat.getColorStateList(holder.itemView.context,R.color.white)
+            holder.itemView.idIVCourse.setTextColor(Color.GREEN)
 
         }
 

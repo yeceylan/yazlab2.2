@@ -8,5 +8,6 @@ data class CourseRVModal(
     var courseText:String,
     var isClicked:Boolean,
     var backColor:Int,
-    var background:Int
+    var background:Int,
+    var ice:Int
 )

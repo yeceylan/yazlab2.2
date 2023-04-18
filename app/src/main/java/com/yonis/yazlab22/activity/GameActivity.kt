@@ -137,13 +137,18 @@ class GameActivity : AppCompatActivity() {
 
     private fun getEightLetter() {
         val vowels = "AEIİOÖUÜ"
-        val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
         var stringList:List<String>
 
         stringList=createList(8,15)
         var temp=0
            for (i in 79..87) {
-               courseList.get(i).courseText = stringList.get(temp)
+               if(vowels.contains(stringList.get(temp))){
+                   courseList.get(i).courseText = stringList.get(temp)
+                   courseList.get(i).background =R.drawable.oval_background
+               }else{
+                   courseList.get(i).courseText = stringList.get(temp)
+                   courseList.get(i).background =R.drawable.rectangle_background
+               }
                temp++
            }
 
@@ -152,22 +157,32 @@ class GameActivity : AppCompatActivity() {
     private fun addToList(start:Int,end:Int,stringList:List<String>){
         val vowels = "AEIİOÖUÜ"
 
-        val fields = Class.forName("$packageName.R\$color").declaredFields
-        for (field in fields) {
-            val colorName = field.name
-            val colorId = field.getInt(null)
-            val color = resources.getColor(colorId)
-            println(colorName+colorId+color)
-        }
         for (i in start..end) {
-
+            var color=generateRandColor()
             if(vowels.contains(stringList.get(i))){
-                courseList.add(CourseRVModal(i, stringList.get(i), false,R.color.grey, R.drawable.oval_background))
+                courseList.add(CourseRVModal(i, stringList.get(i), false,color, R.drawable.oval_background,0))
             }else{
-                courseList.add(CourseRVModal(i, stringList.get(i), false, R.color.grey, R.drawable.rectangle_background))
+                courseList.add(CourseRVModal(i, stringList.get(i), false, color, R.drawable.rectangle_background,0))
             }
 
         }
+    }
+
+    private fun generateRandColor():Int{
+        val colorList = mutableListOf<Int>()
+        val limit:Int=2131100272
+        val endLimit:Int=2131100291
+        val fields = Class.forName("$packageName.R\$color").declaredFields
+        for (field in fields) {
+            val colorId = field.getInt(null)
+            if(colorId > limit && colorId < endLimit){
+                colorList.add(colorId)
+            }else{
+                continue
+            }
+        }
+        colorList.shuffle()
+        return colorList.get(0)
     }
 
     private fun generateCourseList() {
@@ -203,7 +218,7 @@ class GameActivity : AppCompatActivity() {
         } else {
 
             clickedView?.backgroundTintList =
-                ContextCompat.getColorStateList(applicationContext,R.color.grey)
+                ContextCompat.getColorStateList(applicationContext,courseList.get(pastId).backColor)
 
             idText.text = temp.dropLast(1)
             pastIdList.remove(pastId);
@@ -232,7 +247,14 @@ class GameActivity : AppCompatActivity() {
                 println(idText.text.toString())
                 getPoint()
                 for (j in 0 until pastIdList.size) {
-                    courseList.get(pastIdList.get(j)).courseText="."
+                    if(courseList.get(pastIdList.get(j)).ice==2 || courseList.get(pastIdList.get(j)).ice==1){
+                        courseList.get(pastIdList.get(j)).ice=0
+                    }else if (courseList.get(pastIdList.get(j)).ice==0){
+                        courseList.get(pastIdList.get(j)).courseText="."
+                    }else{
+                        println("yarraaa")
+                    }
+
                 }
                 deleteText()
                 sortList()
@@ -269,7 +291,7 @@ class GameActivity : AppCompatActivity() {
             i.isClicked = false
         }
     }
-
+    //düzenlenmesi gerek
     private fun deleteText() {
         idText.text = ""
         for (i in pastIdList) {
