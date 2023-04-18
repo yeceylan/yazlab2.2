@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_game_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class GameActivity : AppCompatActivity() {
 
@@ -121,18 +120,27 @@ class GameActivity : AppCompatActivity() {
         clickTimer.start()
     }
 
-    private fun getEightLetter() {
+    private fun createList(countVoew:Int,countConsonant:Int):List<String>{
         val vowels = arrayOf('A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü')
         val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
         val stringList = mutableListOf<String>()
 
-        for (i in 0..8) {
+        for (i in 0..countVoew) {
             stringList.add(vowels.random().toString())
         }
-        for (i in 0..15) {
+        for (i in 0..countConsonant) {
             stringList.add(turkishLetters.random().toString())
         }
         stringList.shuffle()
+        return stringList
+    }
+
+    private fun getEightLetter() {
+        val vowels = "AEIİOÖUÜ"
+        val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
+        var stringList:List<String>
+
+        stringList=createList(8,15)
         var temp=0
            for (i in 79..87) {
                courseList.get(i).courseText = stringList.get(temp)
@@ -141,30 +149,40 @@ class GameActivity : AppCompatActivity() {
 
     }
 
+    private fun addToList(start:Int,end:Int,stringList:List<String>){
+        val vowels = "AEIİOÖUÜ"
+
+        val fields = Class.forName("$packageName.R\$color").declaredFields
+        for (field in fields) {
+            val colorName = field.name
+            val colorId = field.getInt(null)
+            val color = resources.getColor(colorId)
+            println(colorName+colorId+color)
+        }
+        for (i in start..end) {
+
+            if(vowels.contains(stringList.get(i))){
+                courseList.add(CourseRVModal(i, stringList.get(i), false,R.color.grey, R.drawable.oval_background))
+            }else{
+                courseList.add(CourseRVModal(i, stringList.get(i), false, R.color.grey, R.drawable.rectangle_background))
+            }
+
+        }
+    }
+
     private fun generateCourseList() {
-        val vowels = arrayOf('A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü')
-        val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
-        val stringList = mutableListOf<String>()
 
-        for (i in 0..8) {
-            stringList.add(vowels.random().toString())
+        var stringList:List<String>
+
+        stringList=createList(8,15)
+        addToList(0,23,stringList)
+
+        val dotList = mutableListOf<String>()
+
+        for (i in 0..63) {
+            dotList.add(".")
         }
-        for (i in 0..15) {
-            stringList.add(turkishLetters.random().toString())
-        }
-        stringList.shuffle()
-        for (i in 0..23) {
-            val rnd = Random()
-
-            courseList.add(CourseRVModal(i, stringList.get(i), false, R.color.teal_200, R.drawable.rectangle_background))
-
-        }
-        for (i in 24..87) {
-            val rnd = Random()
-
-            courseList.add(CourseRVModal(i, ".", false, R.color.teal_200,R.drawable.oval_background))
-
-        }
+        addToList(0,63,dotList)
 
     }
 
@@ -185,7 +203,7 @@ class GameActivity : AppCompatActivity() {
         } else {
 
             clickedView?.backgroundTintList =
-                ContextCompat.getColorStateList(applicationContext,R.color.white)
+                ContextCompat.getColorStateList(applicationContext,R.color.grey)
 
             idText.text = temp.dropLast(1)
             pastIdList.remove(pastId);
@@ -218,9 +236,7 @@ class GameActivity : AppCompatActivity() {
                 }
                 deleteText()
                 sortList()
-                for (i in courseList) {
-                    i.isClicked = false
-                }
+                makeFalse()
                 courseRVAdapter.notifyDataSetChanged()
                 return true
             }
@@ -248,6 +264,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    private fun makeFalse(){
+        for (i in courseList) {
+            i.isClicked = false
+        }
+    }
+
     private fun deleteText() {
         idText.text = ""
         for (i in pastIdList) {
@@ -255,9 +277,7 @@ class GameActivity : AppCompatActivity() {
             clickedView?.setBackgroundColor(Color.WHITE)
         }
         pastIdList.clear()
-        for (i in courseList) {
-            i.isClicked = false
-        }
+       makeFalse()
     }
 
     private fun loadTextFromAssets() {
