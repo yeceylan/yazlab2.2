@@ -11,27 +11,30 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
         var text:String=""
         var backgrund:Int=0
         var backColor:Int=0
+        var isIce:Int=0
 
         for(pos in 0..87){
             if(GameActivity.courseList.get(pos).courseText != "."){
                 text=GameActivity.courseList.get(pos).courseText
                 backgrund=GameActivity.courseList.get(pos).background
                 backColor=GameActivity.courseList.get(pos).backColor
-                dropItem(pos,text,backgrund,backColor)
+                isIce=GameActivity.courseList.get(pos).ice
+                dropItem(pos,text,backgrund,backColor,isIce)
             }
             if(GameActivity.courseList.get(pos).ice==2){
-               //makeItIce(pos)
+               makeItIce(pos)
             }
         }
         GameActivity.courseRVAdapter.notifyDataSetChanged()
     }
-    fun dropItem(pos:Int,text:String,background:Int,backColor:Int): Int {
+    fun dropItem(pos:Int,text:String,background:Int,backColor:Int,isIce:Int): Int {
         if(pos>8) {
             if (GameActivity.courseList.get(pos - 8).courseText.equals(".")) {
                 GameActivity.courseList.get(pos).courseText = "."
                 GameActivity.courseList.get(pos - 8).courseText = text
                 GameActivity.courseList.get(pos - 8).background =background
                 GameActivity.courseList.get(pos - 8).backColor =backColor
+                GameActivity.courseList.get(pos - 8).ice =isIce
             } else {
                 return 1
             }
