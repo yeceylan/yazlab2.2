@@ -2,6 +2,7 @@ package com.yonis.yazlab22.activity
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -33,7 +34,7 @@ class GameActivity : AppCompatActivity() {
     var pastId: Int = 0
     var p: Int = 0
     var health: Int = 3
-    var timer:Long =5000L
+    var timer: Long = 5000L
     lateinit var pastIdList: ArrayList<Int>
     private lateinit var buttonX: Button
     private lateinit var point: TextView
@@ -107,7 +108,9 @@ class GameActivity : AppCompatActivity() {
                         health--
                         healt2.setTextColor(Color.RED)
                     } else {
-                        //game over
+                        val intent = Intent(this, ScoreBoard::class.java)
+                        intent.putExtra("point", p)
+                        startActivity(intent)
                     }
                 }
 
@@ -118,9 +121,10 @@ class GameActivity : AppCompatActivity() {
         clickTimer = ClickCounter(applicationContext, 1000)
         clickTimer.onTick(1000)
         clickTimer.start()
+        sortList()
     }
 
-    private fun createList(countVoew:Int,countConsonant:Int):List<String>{
+    private fun createList(countVoew: Int, countConsonant: Int): List<String> {
         val vowels = arrayOf('A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü')
         val turkishLetters = "BCÇDFGĞHJKLMNPRSŞTVYZ"
         val stringList = mutableListOf<String>()
@@ -137,47 +141,63 @@ class GameActivity : AppCompatActivity() {
 
     private fun getEightLetter() {
         val vowels = "AEIİOÖUÜ"
-        var stringList:List<String>
+        var stringList: List<String>
 
-        stringList=createList(8,15)
-        var temp=0
-           for (i in 79..87) {
-               if(vowels.contains(stringList.get(temp))){
-                   courseList.get(i).courseText = stringList.get(temp)
-                   courseList.get(i).background =R.drawable.oval_background
-               }else{
-                   courseList.get(i).courseText = stringList.get(temp)
-                   courseList.get(i).background =R.drawable.rectangle_background
-               }
-               temp++
-           }
+        stringList = createList(8, 15)
+        var temp = 0
+        for (i in 79..87) {
+            if (vowels.contains(stringList.get(temp))) {
+                courseList.get(i).courseText = stringList.get(temp)
+                courseList.get(i).background = R.drawable.oval_background
+            } else {
+                courseList.get(i).courseText = stringList.get(temp)
+                courseList.get(i).background = R.drawable.rectangle_background
+            }
+            temp++
+        }
 
     }
 
-    private fun addToList(start:Int,end:Int,stringList:List<String>){
+    private fun addToList(start: Int, end: Int, stringList: List<String>) {
         val vowels = "AEIİOÖUÜ"
 
         for (i in start..end) {
-            var color=generateRandColor()
-            if(vowels.contains(stringList.get(i))){
-                courseList.add(CourseRVModal(i, stringList.get(i), false,color, R.drawable.oval_background,0))
-            }else{
-                courseList.add(CourseRVModal(i, stringList.get(i), false, color, R.drawable.rectangle_background,0))
+            var color = generateRandColor()
+            if (vowels.contains(stringList.get(i))) {
+                courseList.add(
+                    CourseRVModal(
+                        i,
+                        stringList.get(i),
+                        false,
+                        color,
+                        R.drawable.oval_background,
+                        0
+                    )
+                )
+            } else {
+                courseList.add(
+                    CourseRVModal(
+                        i,
+                        stringList.get(i),
+                        false,
+                        color,
+                        R.drawable.rectangle_background,
+                        0
+                    )
+                )
             }
 
         }
     }
 
-    private fun generateRandColor():Int{
+    private fun generateRandColor(): Int {
         val colorList = mutableListOf<Int>()
-        val limit:Int=2131100272
-        val endLimit:Int=2131100291
         val fields = Class.forName("$packageName.R\$color").declaredFields
         for (field in fields) {
             val colorId = field.getInt(null)
-            if(colorId > limit && colorId < endLimit){
+            if (colorId > R.color.black && colorId < R.color.white) {
                 colorList.add(colorId)
-            }else{
+            } else {
                 continue
             }
         }
@@ -187,17 +207,17 @@ class GameActivity : AppCompatActivity() {
 
     private fun generateCourseList() {
 
-        var stringList:List<String>
+        var stringList: List<String>
 
-        stringList=createList(8,15)
-        addToList(0,23,stringList)
+        stringList = createList(8, 15)
+        addToList(0, 23, stringList)
 
         val dotList = mutableListOf<String>()
 
         for (i in 0..63) {
             dotList.add(".")
         }
-        addToList(0,63,dotList)
+        addToList(0, 63, dotList)
 
     }
 
@@ -218,7 +238,10 @@ class GameActivity : AppCompatActivity() {
         } else {
 
             clickedView?.backgroundTintList =
-                ContextCompat.getColorStateList(applicationContext,courseList.get(pastId).backColor)
+                ContextCompat.getColorStateList(
+                    applicationContext,
+                    courseList.get(pastId).backColor
+                )
 
             idText.text = temp.dropLast(1)
             pastIdList.remove(pastId);
@@ -244,18 +267,23 @@ class GameActivity : AppCompatActivity() {
         var sublist = readTextFromAssets.subList(start, end)
         for (i in sublist) {
             if (i.equals(idText.text.toString().lowercase())) {
-                println(idText.text.toString())
-                getPoint()
+
                 for (j in 0 until pastIdList.size) {
-                    if(courseList.get(pastIdList.get(j)).ice==2 || courseList.get(pastIdList.get(j)).ice==1){
-                        courseList.get(pastIdList.get(j)).ice=0
-                    }else if (courseList.get(pastIdList.get(j)).ice==0){
-                        courseList.get(pastIdList.get(j)).courseText="."
-                    }else{
-                        println("yarraaa")
+                    if (courseList.get(pastIdList.get(j)).ice == 2 || courseList.get(
+                            pastIdList.get(
+                                j
+                            )
+                        ).ice == 1
+                    ) {
+                        courseList.get(pastIdList.get(j)).ice = 0
+                    } else if (courseList.get(pastIdList.get(j)).ice == 0) {
+                        courseList.get(pastIdList.get(j)).courseText = "."
+                    } else {
+
                     }
 
                 }
+                getPoint()
                 deleteText()
                 sortList()
                 makeFalse()
@@ -266,7 +294,7 @@ class GameActivity : AppCompatActivity() {
         return false;
     }
 
-    private fun getPoint():Int {
+    private fun getPoint(): Int {
         point = findViewById(R.id.point)
         for (i in idText.text.toString().lowercase()) {
             for (j in LetterStartEnd.letterStartEndArrayList) {
@@ -286,11 +314,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeFalse(){
+    private fun makeFalse() {
         for (i in courseList) {
             i.isClicked = false
         }
     }
+
     //düzenlenmesi gerek
     private fun deleteText() {
         idText.text = ""
@@ -299,7 +328,7 @@ class GameActivity : AppCompatActivity() {
             clickedView?.setBackgroundColor(Color.WHITE)
         }
         pastIdList.clear()
-       makeFalse()
+        makeFalse()
     }
 
     private fun loadTextFromAssets() {

@@ -27,6 +27,7 @@ class TimeCounter(private val context: Context, countUpInterval: Long) : CountUp
             GameActivity.courseList.get(rnds).background= R.drawable.ice_background
             GameActivity.courseList.get(rnds).backColor=R.color.ice
             GameActivity.courseList.get(rnds).ice=2
+
         }else{
             if(turkishLetters.contains(stringList.get(0))){
                 GameActivity.courseList.get(rnds).background= R.drawable.rectangle_background
