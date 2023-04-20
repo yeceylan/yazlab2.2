@@ -23,6 +23,7 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
             }
             if(GameActivity.courseList.get(pos).ice==2){
                makeItIce(pos)
+                GameActivity.courseList.get(pos).ice=1
             }
         }
         GameActivity.courseRVAdapter.notifyDataSetChanged()
@@ -41,6 +42,7 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
         }
             return 0
     }
+
     fun makeItIce(pos:Int){
         val iceList = mutableListOf<Int>()
         var icePos=pos-9
@@ -61,5 +63,4 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
             }
         }
     }
-
 }

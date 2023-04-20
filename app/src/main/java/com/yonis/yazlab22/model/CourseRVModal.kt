@@ -11,3 +11,4 @@ data class CourseRVModal(
     var background:Int,
     var ice:Int
 )
+

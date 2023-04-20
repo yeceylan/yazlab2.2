@@ -32,7 +32,6 @@ class GameActivity : AppCompatActivity() {
     var time = 0L
     var pastTime: Int = 1
     var pastId: Int = 0
-    var p: Int = 0
     var health: Int = 3
     var timer: Long = 5000L
     lateinit var pastIdList: ArrayList<Int>
@@ -49,6 +48,7 @@ class GameActivity : AppCompatActivity() {
         lateinit var courseList: ArrayList<CourseRVModal>
         lateinit var courseRVAdapter: CourseRVAdapter
         lateinit var courseRV: RecyclerView
+        var p: Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -195,7 +195,7 @@ class GameActivity : AppCompatActivity() {
         val fields = Class.forName("$packageName.R\$color").declaredFields
         for (field in fields) {
             val colorId = field.getInt(null)
-            if (colorId > R.color.black && colorId < R.color.white) {
+            if ((colorId > R.color.black && colorId < R.color.white)&& colorId!=R.color.ice) {
                 colorList.add(colorId)
             } else {
                 continue
@@ -269,17 +269,11 @@ class GameActivity : AppCompatActivity() {
             if (i.equals(idText.text.toString().lowercase())) {
 
                 for (j in 0 until pastIdList.size) {
-                    if (courseList.get(pastIdList.get(j)).ice == 2 || courseList.get(
-                            pastIdList.get(
-                                j
-                            )
-                        ).ice == 1
+                    if (courseList.get(pastIdList.get(j)).ice == 2 || courseList.get(pastIdList.get(j)).ice == 1
                     ) {
                         courseList.get(pastIdList.get(j)).ice = 0
                     } else if (courseList.get(pastIdList.get(j)).ice == 0) {
                         courseList.get(pastIdList.get(j)).courseText = "."
-                    } else {
-
                     }
 
                 }
