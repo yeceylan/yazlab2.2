@@ -53,10 +53,10 @@ class GameActivity : AppCompatActivity() {
     private val handler = Handler()
     private val delayRunnable = Runnable {
         when (p) {
-             1-> timer = 4000L
-             2 -> timer = 3000L
-             3 -> timer = 2000L
-             4 -> timer = 1000L
+            in 1..100 -> timer = 4000L
+            in 101..200 -> timer = 3000L
+            in 201..300 -> timer = 2000L
+            in 301..400 -> timer = 1000L
         }
         countUpTimer=TimeCounter(applicationContext, timer,p)
         println(timer)
