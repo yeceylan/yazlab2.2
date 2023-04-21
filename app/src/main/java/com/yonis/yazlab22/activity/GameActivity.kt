@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Button
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,10 +28,6 @@ import java.util.*
 
 class GameActivity : AppCompatActivity() {
 
-    var handler = Handler()
-    var runnable = Runnable { }
-    var time = 0L
-    var pastTime: Int = 1
     var pastId: Int = 0
     var health: Int = 3
     var timer: Long = 5000L
@@ -41,8 +38,10 @@ class GameActivity : AppCompatActivity() {
     private lateinit var healt2: TextView
     private lateinit var buttonTick: Button
     private lateinit var readTextFromAssets: ArrayList<String>
-    private lateinit var countUpTimer: TimeCounter
+
     private lateinit var clickTimer: ClickCounter
+    private lateinit var  countUpTimer: TimeCounter
+
 
     companion object {
         lateinit var courseList: ArrayList<CourseRVModal>
@@ -50,6 +49,22 @@ class GameActivity : AppCompatActivity() {
         lateinit var courseRV: RecyclerView
         var p: Int = 0
     }
+    //For letter adding
+    private val handler = Handler()
+    private val delayRunnable = Runnable {
+        when (p) {
+             1-> timer = 4000L
+             2 -> timer = 3000L
+             3 -> timer = 2000L
+             4 -> timer = 1000L
+        }
+        countUpTimer=TimeCounter(applicationContext, timer,p)
+        println(timer)
+        countUpTimer.start()
+
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,8 +94,9 @@ class GameActivity : AppCompatActivity() {
         courseRVAdapter.notifyDataSetChanged()
         pastIdList = ArrayList()
         loadTextFromAssets()
-        countUpTimer = TimeCounter(applicationContext, timer)
-        countUpTimer.start()
+        //For letter adding delay
+        handler.postDelayed(delayRunnable, 5000)
+
 
     }
 
@@ -297,6 +313,9 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
+        //Because of dynamic letter adding
+        countUpTimer.cancel()
+        handler.postDelayed(delayRunnable, 1)
         point.text = p.toString()
         return p
     }

@@ -50,6 +50,7 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
             for(j in 0..2){
                 if(icePos+j < 80){
                     iceList.add(icePos+j)
+
                 }
             }
             icePos++

@@ -1,5 +1,4 @@
 import android.os.CountDownTimer
-import com.yonis.yazlab22.activity.GameActivity
 
 abstract class CountUpTimer(countUpInterval: Long) {
     private val countDownTimer: CountDownTimer
@@ -24,7 +23,6 @@ abstract class CountUpTimer(countUpInterval: Long) {
 
     fun start() {
         countDownTimer.start()
-
     }
 
     fun stop() {
@@ -39,4 +37,5 @@ abstract class CountUpTimer(countUpInterval: Long) {
 //        GameActivity.courseRVAdapter.notifyDataSetChanged()
 //    }
     abstract fun onTick(millisElapsed: Long)
+
 }
