@@ -25,7 +25,7 @@ class TimeCounter(private val context: Context, countUpInterval: Long, private v
         }
         stringList.shuffle()
         val rnds = (71..87).random()
-        val rnd = (7..9).random()
+        val rnd = (0..9).random()
         GameActivity.courseList.get(rnds).courseText = stringList.get(0)
 
         if (rnd == 9) {
@@ -38,11 +38,11 @@ class TimeCounter(private val context: Context, countUpInterval: Long, private v
                 GameActivity.courseList.get(rnds).background = R.drawable.rectangle_background
             } else {
                 GameActivity.courseList.get(rnds).background = R.drawable.oval_background
+
             }
         }
 
     }
-
     fun checkColumns() {
         var count: Int = 0
         for (col in 0..7) {

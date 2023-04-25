@@ -206,12 +206,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun generateRandColor(): Int {
+     fun generateRandColor(): Int {
         val colorList = mutableListOf<Int>()
         val fields = Class.forName("$packageName.R\$color").declaredFields
         for (field in fields) {
             val colorId = field.getInt(null)
-            if ((colorId > R.color.black && colorId < R.color.white)&& colorId!=R.color.ice) {
+            if ((colorId != R.color.black && colorId != R.color.white)&& colorId!=R.color.ice) {
                 colorList.add(colorId)
             } else {
                 continue

@@ -14,7 +14,6 @@ abstract class CountUpTimer(countUpInterval: Long) {
             override fun onFinish() {
                 countDownCycle++
                 this@CountUpTimer.start()
-
             }
 
         }

@@ -29,9 +29,12 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
         GameActivity.courseRVAdapter.notifyDataSetChanged()
     }
     fun dropItem(pos:Int,text:String,background:Int,backColor:Int,isIce:Int): Int {
+        val rand=(40..87).random()
+        val color=GameActivity.courseList.get(rand).backColor
         if(pos>8) {
             if (GameActivity.courseList.get(pos - 8).courseText.equals(".")) {
                 GameActivity.courseList.get(pos).courseText = "."
+                GameActivity.courseList.get(pos).backColor=color
                 GameActivity.courseList.get(pos - 8).courseText = text
                 GameActivity.courseList.get(pos - 8).background =background
                 GameActivity.courseList.get(pos - 8).backColor =backColor
@@ -46,14 +49,25 @@ class ClickCounter (private val context: Context, countUpInterval: Long) : Count
     fun makeItIce(pos:Int){
         val iceList = mutableListOf<Int>()
         var icePos=pos-9
-        for(i in 0..2){
-            for(j in 0..2){
-                if(icePos+j < 80){
-                    iceList.add(icePos+j)
-
+        if(pos%8!=0){
+            for(i in 0..2){
+                for(j in 0..2){
+                    if(icePos+j < 80){
+                        iceList.add(icePos+j)
+                    }
                 }
+                icePos+=8
             }
-            icePos++
+        }else{
+            for(i in 0..2){
+                for(j in 0..2){
+                    if(icePos+j < 80 && icePos+j!=pos-1 && icePos+j!=pos-9){
+                        iceList.add(icePos+j)
+                    }
+                }
+                icePos+=8
+            }
+
         }
         for(i in 0..iceList.size-1){
             if(GameActivity.courseList.get(iceList.get(i)).ice == 0){

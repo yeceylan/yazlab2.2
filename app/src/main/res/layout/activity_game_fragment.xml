@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.GameActivity">
+    tools:context=".activity.GameActivity"
+    android:background="@drawable/background">
 
     <!--on below line we are creating
         a text for heading of our app-->
@@ -43,18 +44,20 @@
         android:layout_below="@id/point"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         />
+
     <Button
         android:id="@+id/buttonX"
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_below="@+id/idRVCourses"
-        android:text="❌"
-        ></Button>
+        android:background="@drawable/xbtn"
+        android:text="❌" />
     <TextView
         android:id="@+id/idText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="30sp"
+        android:textColor="@color/white"
         android:layout_toLeftOf="@id/buttonTick"
         android:layout_toRightOf="@id/buttonX"
         android:layout_below="@+id/idRVCourses" />
@@ -65,7 +68,8 @@
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_below="@+id/idRVCourses"
+        android:background="@drawable/tickbtn"
         android:layout_alignParentEnd="true"
-        android:text="✔"></Button>
+        android:text="✔" />
 
 </RelativeLayout>
