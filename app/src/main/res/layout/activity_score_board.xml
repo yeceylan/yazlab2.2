@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ScoreBoard">
+    tools:context=".activity.ScoreBoard"
+    android:background="@drawable/background">
 
 
     <TextView
@@ -14,6 +15,7 @@
         android:text="Score: 75"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/messageTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +28,7 @@
         android:text="Good job! You're getting better."
         android:textAlignment="center"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/emojiTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
